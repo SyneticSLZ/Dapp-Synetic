@@ -239,13 +239,13 @@ app.post('/login-varity', async (req, res) => {
     // const entered = 
     console.log(password, user.upwrd);
     // const isMatch =   await bcrypt.compare(password, user.upwrd);
-    const isMatch = false;
+    var check = false;
   
     if (password === user.upwrd) {
-      isMatch=true
+      check=true
     }
 
-    if (!isMatch) {
+    if (!check) {
       return res.status(400).send({ error: 'Invalid password' });
     }
   
