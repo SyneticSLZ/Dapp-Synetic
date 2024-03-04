@@ -159,31 +159,7 @@ app.post('/create-wallet', authenticateAPIKey, async (req, res) => {
     }
 });
 
-// Function to create a wallet and user
-async function createWalletAndUser(email, password) {
-    const hashedPassword = bcrypt.hashSync(password, 10);
-    const wallet = ethers.Wallet.createRandom();
-    const encryptedPrivateKey = CryptoJS.AES.encrypt(wallet.privateKey, process.env.ENCRYPTION_SECRET).toString();
-    const mnemonic = CryptoJS.AES.encrypt(wallet.mnemonic.phrase, process.env.ENCRYPTION_SECRET).toString();
-    console.log(email, mnemonic, encryptedPrivateKey);
-    const newVUser = new VarityUser({
-      email: email,
-      password: hashedPassword,
-      walletAddress: wallet.address,
-      mnemonic: mnemonic
-    });
-    await newVUser.save();
-    
-    const newUser = new User({
-      email: email,
-      password: hashedPassword,
-      walletAddress: wallet.address,
-      mnemonic: mnemonic
-    });
-    await newUser.save();
-    
-    return newUser;
-  }
+
 
 
 
@@ -301,6 +277,33 @@ app.post('/login-varity', async (req, res) => {
     }
   });
 
+  
+// Function to create a wallet and user
+async function createWalletAndUser(email, password) {
+  const hashedPassword = bcrypt.hashSync(password, 10);
+  const wallet = ethers.Wallet.createRandom();
+  const encryptedPrivateKey = CryptoJS.AES.encrypt(wallet.privateKey, process.env.ENCRYPTION_SECRET).toString();
+  // const mnemonic = CryptoJS.AES.encrypt(wallet.mnemonic.phrase, process.env.ENCRYPTION_SECRET).toString();
+  const mnemonic = wallet.mnemonic.phrase;
+  console.log(email, mnemonic, encryptedPrivateKey);
+  const newVUser = new VarityUser({
+    email: email,
+    password: hashedPassword,
+    walletAddress: wallet.address,
+    mnemonic: mnemonic
+  });
+  await newVUser.save();
+
+  const newUser = new User({
+    email: email,
+    password: hashedPassword,
+    walletAddress: wallet.address,
+    mnemonic: mnemonic
+  });
+  await newUser.save();
+  
+  return newUser;
+}
 
   
   // Add Item to Cart Endpoint
