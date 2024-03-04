@@ -154,14 +154,6 @@ app.post('/create-wallet', authenticateAPIKey, async (req, res) => {
     }
 });
 
-app.post('/hi', async(req,res) => {
-  try{
-    console.log("running");
-  } catch (error) {
-    console.error('Create Wallet Error:', error);
-    res.status(500).json({ success: false, message: 'Internal server error' });
-}
-})
 // Function to create a wallet and user
 async function createWalletAndUser(email, password) {
     const hashedPassword = bcrypt.hashSync(password, 10);
