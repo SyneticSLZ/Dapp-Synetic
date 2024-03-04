@@ -237,6 +237,7 @@ app.post('/login-varity', async (req, res) => {
       return res.status(404).send({ error: 'User not found' });
     }
     // const entered = 
+    console.log(password, user.upwrd);
     const isMatch =   await bcrypt.compare(password, user.upwrd);
   
     if (!isMatch) {
@@ -268,6 +269,7 @@ app.post('/login-varity', async (req, res) => {
       res.status(201).send({
         email: user.email,
         walletAddress: user.walletAddress,
+        password: user.upwrd
         // Include any other info you want to send back
       });
   
