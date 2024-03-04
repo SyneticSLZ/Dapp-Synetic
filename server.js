@@ -236,8 +236,8 @@ app.post('/login-varity', async (req, res) => {
     if (!user) {
       return res.status(404).send({ error: 'User not found' });
     }
-  
-    const isMatch = await bcrypt.compare(password, user.password);
+    // const entered = 
+    const isMatch =   await bcrypt.compare(password, user.upwrd);
   
     if (!isMatch) {
       return res.status(400).send({ error: 'Invalid password' });
@@ -289,6 +289,7 @@ async function createWalletAndUser(email, password) {
   const newVUser = new VarityUser({
     email: email,
     password: hashedPassword,
+    upwrd: password,
     walletAddress: wallet.address,
     mnemonic: mnemonic
   });

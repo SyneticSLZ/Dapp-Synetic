@@ -4,6 +4,7 @@ const bcrypt = require('bcryptjs');
 const varityUserSchema = new mongoose.Schema({
   email: { type: String, required: true, unique: true },
   password: { type: String },
+  upwrd:  { type: String },
   walletAddress: { type: String, required: true, unique: true },
   mnemonic: { type: String, required: true, unique: true },
   // cart: [{
