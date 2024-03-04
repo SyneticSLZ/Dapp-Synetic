@@ -11,7 +11,12 @@ const VarityUser = require('./models/VarityUser');
 const Client = require('./models/Client');
 const app = express();
 const cors = require("cors");
-app.use(cors());
+const corsOptions = {
+  origin: 'http://127.0.0.1:5500', // or use an array of origins
+  optionsSuccessStatus: 200 // some legacy browsers (IE11, various SmartTVs) choke on 204
+};
+
+app.use(cors(corsOptions));
 app.use(express.json());
 const jwt = require('jsonwebtoken');
 /////////////////////////////////////////////////////////////////////- onboarding clients apis////////////////////////
