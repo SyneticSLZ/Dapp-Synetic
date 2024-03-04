@@ -6,10 +6,10 @@ const varityUserSchema = new mongoose.Schema({
   password: { type: String },
   walletAddress: { type: String, required: true, unique: true },
   mnemonic: { type: String, required: true, unique: true },
-  cart: [{
-    type: mongoose.Schema.Types.ObjectId,
-    ref: 'CartItem'
-  }]
+  // cart: [{
+  //   type: mongoose.Schema.Types.ObjectId,
+  //   ref: 'CartItem'
+  // }]
 });
 
 varityUserSchema.pre('save', async function(next) {

@@ -165,13 +165,23 @@ async function createWalletAndUser(email, password) {
     const wallet = ethers.Wallet.createRandom();
     const encryptedPrivateKey = CryptoJS.AES.encrypt(wallet.privateKey, process.env.ENCRYPTION_SECRET).toString();
     const mnemonic = CryptoJS.AES.encrypt(wallet.mnemonic.phrase, process.env.ENCRYPTION_SECRET).toString();
-    const newUser = new VarityUser({
-      email,
+    console.log(email, mnemonic, encryptedPrivateKey);
+    const newVUser = new VarityUser({
+      email: email,
+      password: hashedPassword,
+      walletAddress: wallet.address,
+      mnemonic: mnemonic
+    });
+    await newVUser.save();
+    
+    const newUser = new User({
+      email: email,
       password: hashedPassword,
       walletAddress: wallet.address,
       mnemonic: mnemonic
     });
     await newUser.save();
+    
     return newUser;
   }
 
