@@ -270,10 +270,10 @@ app.post('/login-varity', async (req, res) => {
       }
   
       // Check if user already exists
-      const existingUser = await VarityUser.findOne({ email });
-      if (existingUser) {
-        return res.status(400).send({ error: 'User already exists' });
-      }
+      // const existingUser = await VarityUser.findOne({ email });
+      // if (existingUser) {
+      //   return res.status(400).send({ error: 'User already exists' });
+      // }
   
       // Create wallet and user
       const user = await createWalletAndUser(email, password);
