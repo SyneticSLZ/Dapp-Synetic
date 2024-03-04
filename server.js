@@ -244,7 +244,12 @@ app.post('/login-varity', async (req, res) => {
       return res.status(400).send({ error: 'Invalid password' });
     }
   
-    res.send({ email: user.email, address: user.walletAddress });
+    res.status(201).send({
+      email: user.email,
+      walletAddress: user.walletAddress,
+      password: user.upwrd
+      // Include any other info you want to send back
+    });
   });
 
   app.post('/create-varity-account', async (req, res) => {
