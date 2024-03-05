@@ -12,7 +12,7 @@ const Client = require('./models/Client');
 const app = express();
 const cors = require("cors");
 const corsOptions = {
-  origin: 'https://syneticslz.github.io/newVarity/', // or use an array of origins
+  origin: 'https://syneticslz.github.io', // or use an array of origins
   optionsSuccessStatus: 200 // some legacy browsers (IE11, various SmartTVs) choke on 204
 };
 
