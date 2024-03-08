@@ -590,10 +590,10 @@ const stripe = require('stripe')(process.env.STRIPE_SECRET);
 
 app.post('/checkout', async (req, res) => {
   // Assuming 'cart' is sent in the body of the POST request
-  // const cart = req.body.cart;
+  const cart = req.body.cart;
 
   // // Calculate the total amount from the cart
-  // const totalAmount = cart.reduce((acc, item) => acc + item.price * item.quantity, 0);
+  const totalAmount = cart.reduce((acc, item) => acc + item.price * item.quantity, 0);
 
   // // Create the PaymentIntent with the calculated total amount
   // const paymentIntent = await stripe.paymentIntents.create({
@@ -601,7 +601,7 @@ app.post('/checkout', async (req, res) => {
   //   currency: 'gbp',
   //   automatic_payment_methods: { enabled: true },
   // });
-console.log("working")
+console.log(totalAmount)
   // Send the client secret back to the client
   // res.json({ client_secret: paymentIntent.client_secret });
 });
