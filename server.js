@@ -608,6 +608,27 @@ console.log(paymentIntent)
 });
 
 
+const YOUR_DOMAIN = 'https://syneticslz.github.io/newVarity';
+
+function reformatCartItemsForStripe(cartItems) {
+  // Directly return the array of line items
+  return cartItems.map(item => ({
+    price: item.id, // Use the item's 'id' as the Stripe Price ID
+    quantity: item.quantity
+  }));
+}
+
+app.post('/create-checkout-session', async (req, res) => {
+  const cart = reformatCartItemsForStripe(req.body.cart);
+  const session = await stripe.checkout.sessions.create({
+    line_items: cart,
+    mode: 'payment',
+    success_url: `${YOUR_DOMAIN}/success.html`,
+    cancel_url: `${YOUR_DOMAIN}/cancel.html`,
+  });
+
+  res.redirect(303, session.url);
+});
 
 const PORT = process.env.PORT || 3000;
 Moralis.start({
