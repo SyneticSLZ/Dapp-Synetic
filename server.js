@@ -305,74 +305,74 @@ handleMintNFT();
 
 
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-import contractAddress from "../chain-info/deployments/map.json";
-import contractAbi from "../chain-info/contracts/AINFTS.json";
+// import contractAddress from "../chain-info/deployments/map.json";
+// import contractAbi from "../chain-info/contracts/AINFTS.json";
 
-export function useMintNFt() {
-  const contract = contractAddress["11155111"]["AINFTS"][0];
-  const abi = contractAbi.abi;
+// export function useMintNFt() {
+//   const contract = contractAddress["11155111"]["AINFTS"][0];
+//   const abi = contractAbi.abi;
 
-  async function mintNFT({ signer, tokenUri }) {
-    try {
-      const nftContract = new ethers.Contract(contract, abi, signer);
-      let tx = await nftContract.mintAiNft(tokenUri, {
-        gasLimit: 1000000,
-      });
-      await tx.wait(1);
-    } catch (err) {
-      console.log(err);
-    }
-  }
+//   async function mintNFT({ signer, tokenUri }) {
+//     try {
+//       const nftContract = new ethers.Contract(contract, abi, signer);
+//       let tx = await nftContract.mintAiNft(tokenUri, {
+//         gasLimit: 1000000,
+//       });
+//       await tx.wait(1);
+//     } catch (err) {
+//       console.log(err);
+//     }
+//   }
 
-  return { mintNFT };
-}
+//   return { mintNFT };
+// }
 
-const MintNFTButton = ({ image, signer }) => {
+// const MintNFTButton = ({ image, signer }) => {
 
-  const { mintNFT } = useMintNFt();
+//   const { mintNFT } = useMintNFt();
 
-  const handleMintNFT = async () => {
-    try {
-      // Step 1: Upload the image to IPFS
-      const requestBody = {
-        content: image.replace("data:image/png;base64,", ""),
-      };
+//   const handleMintNFT = async () => {
+//     try {
+//       // Step 1: Upload the image to IPFS
+//       const requestBody = {
+//         content: image.replace("data:image/png;base64,", ""),
+//       };
 
-      const ipfsResponse = await axios.post(
-        "http://127.0.0.1:5002/uploadToIpfs",
-        JSON.stringify(requestBody),
-        {
-          headers: {
-            "Content-Type": "application/json",
-          },
-        }
-      );
+//       const ipfsResponse = await axios.post(
+//         "http://127.0.0.1:5002/uploadToIpfs",
+//         JSON.stringify(requestBody),
+//         {
+//           headers: {
+//             "Content-Type": "application/json",
+//           },
+//         }
+//       );
+// 
+  //     const imagePath = ipfsResponse.data[0].path;
+  //     console.log("IPFS upload result:", ipfsResponse.data);
 
-      const imagePath = ipfsResponse.data[0].path;
-      console.log("IPFS upload result:", ipfsResponse.data);
+  //     // Step 2: Upload the URI
+  //     const uriResponse = await axios.post("http://127.0.0.1:5002/uploadUri", {
+  //       img: imagePath,
+  //       // addd other variables 
+  //     });
 
-      // Step 2: Upload the URI
-      const uriResponse = await axios.post("http://127.0.0.1:5002/uploadUri", {
-        img: imagePath,
-        // addd other variables 
-      });
+  //     console.log("URI upload result:", uriResponse.data);
 
-      console.log("URI upload result:", uriResponse.data);
-
-      // Step 3: Mint the NFT
-      const tokenUri = uriResponse.data[0].path;
-      await mintNFT({ signer, tokenUri });
-    } catch (error) {
-      console.error("Error uploading image and URI:", error);
-    }
-  };
-
-  return (
-    <button onClick={handleMintNFT} className={styles.button}>
-      Mint NFT
-    </button>
-  );
-};
+  //     // Step 3: Mint the NFT
+  //     const tokenUri = uriResponse.data[0].path;
+  //     await mintNFT({ signer, tokenUri });
+  //   } catch (error) {
+  //     console.error("Error uploading image and URI:", error);
+  //   }
+  // };
+// 
+//   return (
+//     <button onClick={handleMintNFT} className={styles.button}>
+//       Mint NFT
+//     </button>
+//   );
+// };
 
 
 
