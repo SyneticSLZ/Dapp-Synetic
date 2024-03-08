@@ -596,11 +596,12 @@ app.post('/checkout', async (req, res) => {
   const totalAmount = cart.reduce((acc, item) => acc + item.price * item.quantity, 0);
 
   // // Create the PaymentIntent with the calculated total amount
-  // const paymentIntent = await stripe.paymentIntents.create({
-  //   amount: totalAmount * 100, // Convert amount to cents
-  //   currency: 'gbp',
-  //   automatic_payment_methods: { enabled: true },
-  // });
+  const paymentIntent = await stripe.paymentIntents.create({
+    amount: totalAmount * 100, // Convert amount to cents
+    currency: 'gbp',
+    automatic_payment_methods: { enabled: true },
+  });
+  
 console.log(totalAmount)
   // Send the client secret back to the client
   // res.json({ client_secret: paymentIntent.client_secret });
