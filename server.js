@@ -601,8 +601,8 @@ app.post('/checkout', async (req, res) => {
     currency: 'gbp',
     automatic_payment_methods: { enabled: true },
   });
-  
-console.log(totalAmount)
+
+console.log(paymentIntent)
   // Send the client secret back to the client
   // res.json({ client_secret: paymentIntent.client_secret });
 });
